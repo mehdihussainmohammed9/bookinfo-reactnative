@@ -95,6 +95,16 @@ export default class MyDialogError extends Component {
             : this.props.errorMsg}
         </Text>
 
+        <Text
+          style={[
+            eStyles.boldText,
+            fStyles.fontSize13,
+            mStyles.marginTop5,
+            styles.textMsg,
+          ]}>
+          App Version - 1.0.0
+        </Text>
+
         <View style={mStyles.marginTop20} />
         {/* <MyButton
           additionalContainerStyle={styles.btnStyle}
