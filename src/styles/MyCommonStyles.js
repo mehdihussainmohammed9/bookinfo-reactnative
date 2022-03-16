@@ -49,6 +49,11 @@ const eStyles = EStyleSheet.create({
     fontSize: '14rem',
     color: colorTextMain,
   },
+  extraboldText: {
+    fontFamily: FONTS.FONT_BOLD,
+    fontSize: '14rem',
+    color: colorTextMain,
+  },
   semiBoldText: {
     fontFamily: FONTS.FONT_SEMI_BOLD,
     fontSize: '14rem',

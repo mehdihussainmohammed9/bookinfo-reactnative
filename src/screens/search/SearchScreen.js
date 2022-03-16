@@ -13,6 +13,7 @@ import Voice from '@react-native-community/voice';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import ThumbnailItem from '../../shared/thumbnailItem/ThumbnailItem';
 import MyDialogError from '../../shared/dialogError/MyDialogError';
+import MyDialogInfo from '../../shared/dialogInfo/MyDialogInfo';
 
 import MyStatusBar from '../../shared/statusBar/MyStatusBar';
 import MyInputBoxSearch from '../../shared/inputSearch/MyInputBoxSearch';
@@ -34,6 +35,8 @@ import {requestRecordAudioPermission} from '../../utils/MyAndroidPermissions';
 import Toast from 'react-native-simple-toast';
 
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import Entypo from 'react-native-vector-icons/Entypo';
+
 import RNExitApp from 'react-native-exit-app';
 
 const SPEECH_STATES = {
@@ -59,6 +62,7 @@ export default class SearchScreen extends Component {
       errorTitle: '',
       errorMsg: '',
       isErrorDialogVisible: false,
+      isInfoDialogVisible: false,
 
       speechState: SPEECH_STATES.SPEECH_YET_TO_BEGIN,
       isVoiceSearchFeatureAvailable: true,
@@ -87,6 +91,7 @@ export default class SearchScreen extends Component {
     this._stopCurrentSearchApiCall = this._stopCurrentSearchApiCall.bind(this);
 
     this._onItemClick = this._onItemClick.bind(this);
+    this._onInfoClick = this._onInfoClick.bind(this);
 
     this._resetAllSearchData = this._resetAllSearchData.bind(this);
 
@@ -132,7 +137,8 @@ export default class SearchScreen extends Component {
   }
 
   async _startVoiceRecording() {
-    await Voice.start('en-GB');
+    await Voice.start('en-US');
+
     console.log('onSpeechStart start');
   }
 
@@ -359,6 +365,10 @@ export default class SearchScreen extends Component {
     });
   }
 
+  _onInfoClick() {
+    this.setState({isInfoDialogVisible: !this.state.isInfoDialogVisible});
+  }
+
   _onChangeTextMakeApiCall(strSearchInput) {
     this.setState({strSearchInput});
     this._stopCurrentSearchApiCall();
@@ -414,25 +424,22 @@ export default class SearchScreen extends Component {
     return (
       <View style={styles.searchInputBoxContainer}>
         {/* Voice Search Button */}
-        <View style={styles.voiceSearchbButtonContainer}>
-          <TouchableOpacity
-            onPress={this._onSpeakButtonPressed}
-            activeOpacity={0.6}
-            style={styles.voiceSearchIconContainer}>
-            <FeatherIcon
-              name={'mic'}
-              color={colorPrimaryApp}
-              size={22 * EStyleSheet.value('$rem')}
-            />
-          </TouchableOpacity>
-        </View>
-
+        {false && (
+          <View style={styles.voiceSearchbButtonContainer}>
+            <TouchableOpacity
+              onPress={this._onSpeakButtonPressed}
+              activeOpacity={0.6}
+              style={styles.voiceSearchIconContainer}>
+              <FeatherIcon
+                name={'mic'}
+                color={colorPrimaryApp}
+                size={22 * EStyleSheet.value('$rem')}
+              />
+            </TouchableOpacity>
+          </View>
+        )}
         {/* Search Input Box */}
-        <View
-          style={[
-            styles.searchInputOuterContainer,
-            {flex: isVoiceSearchFeatureAvailable ? 0.76 : 0.88},
-          ]}>
+        <View style={[styles.searchInputOuterContainer, {flex: 0.88}]}>
           <MyInputBoxSearch
             ref={myInputBoxSearch => (this.myInputBoxSearch = myInputBoxSearch)}
             value={this.state.strSearchInput}
@@ -447,6 +454,19 @@ export default class SearchScreen extends Component {
               });
             }}
           />
+        </View>
+
+        <View style={styles.voiceSearchbButtonContainer}>
+          <TouchableOpacity
+            onPress={this._onInfoClick}
+            activeOpacity={0.6}
+            style={styles.voiceSearchIconContainer}>
+            <Entypo
+              name={'info'}
+              color={colorPrimaryApp}
+              size={22 * EStyleSheet.value('$rem')}
+            />
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -529,6 +549,17 @@ export default class SearchScreen extends Component {
           onOkPressed={() =>
             this.setState({
               isErrorDialogVisible: false,
+            })
+          }
+        />
+        <MyDialogInfo
+          isVisible={this.state.isInfoDialogVisible}
+          isNetworkError={this.state.isNetworkError}
+          errorTitle={'Developed by'}
+          errorMsg={'Felix Studios'}
+          onOkPressed={() =>
+            this.setState({
+              isInfoDialogVisible: false,
             })
           }
         />
