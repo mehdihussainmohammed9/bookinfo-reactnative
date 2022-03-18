@@ -27,6 +27,9 @@ export const styles = EStyleSheet.create({
   textGreen: {
     color: colorPrimaryApp,
   },
+  textBlack: {
+    color: 'black',
+  },
   textMsg: {
     width: '250rem',
     marginHorizontal: '20rem',

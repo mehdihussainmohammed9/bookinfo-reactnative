@@ -114,7 +114,7 @@ export default class MyDialogError extends Component {
         <TouchableOpacity
           style={[styles.btnStyle]}
           onPress={() => this.props.onOkPressed()}>
-          <Text>Close</Text>
+          <Text style={[styles.textBlack]}>Close</Text>
         </TouchableOpacity>
       </View>
     );

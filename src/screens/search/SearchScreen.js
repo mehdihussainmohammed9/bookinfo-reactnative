@@ -461,7 +461,7 @@ export default class SearchScreen extends Component {
             onPress={this._onInfoClick}
             activeOpacity={0.6}
             style={styles.voiceSearchIconContainer}>
-            <Entypo
+            <FeatherIcon
               name={'info'}
               color={colorPrimaryApp}
               size={22 * EStyleSheet.value('$rem')}
@@ -556,7 +556,7 @@ export default class SearchScreen extends Component {
           isVisible={this.state.isInfoDialogVisible}
           isNetworkError={this.state.isNetworkError}
           errorTitle={'Developed by'}
-          errorMsg={'Felix Studios'}
+          errorMsg={'Felix22 Studios'}
           onOkPressed={() =>
             this.setState({
               isInfoDialogVisible: false,
